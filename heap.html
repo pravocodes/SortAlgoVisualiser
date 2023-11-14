@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+
+
+    <div id="mySidebar" class="sidebar">
+        <h1><a href="/index.html">Home</a></h1>
+    
+        <h3 class="text-light ps-3">LOGARITHMIC</h3>
+        <a href="/quicksort.html">Quick Sort</a>
+        <a href="/merge.html">Merge Sort</a>
+        <a href="/heap.html">Heap Sort</a>
+        <h3 class="text-light ps-3">QUADRATIC</h3>
+        <a href="/selection.html">Selection Sort</a>
+        <a href="/bubble.html">Bubble Sort</a>
+        <a href="/insertion.html">Insertion Sort</a>
+    </div>
+
+    <nav class="fixed-top navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="d-flex">
+                <button id="togglebutton" class="openbtn bg-dark text-light" onclick="toggleNav()">☰</button>
+                <a class="navbar-brand float-start mx-4" href="#">Sort Visualiser</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div>
+        <div id="box">
+            <div class="title">Heap Sort</div>
+            <div style="float: right; white-space: nowrap;">
+                <button class="sort-btns" id="shuffle-btn" onclick="heapplay()"><img src="/images/play.png"
+                        alt="Play"></button>
+                <button class="sort-btns" id="run-btn" onclick="pause()"><img src="/images/pause.png" alt=""></button>
+                <div class="slider-container">
+                    <div id="elements-text">
+                        Elements: <label for="size" id="label"></label>
+                    </div>
+                    <input type="range" value="100" min="10" max="1000" step="5" name="item-num" id="slider">
+
+                    <div id="elements-text">
+                        Time: <label for="speed" id="speed"></label> sec
+                    </div>
+
+                    <input type="range" min="10" max="1000" name="speed" value="500" id="speedSlider"
+                        onchange="setSpeed(this.value)">
+                </div>
+            </div>
+            <div style="clear: both; padding-top: 20px;">
+                <div id="container"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="cover">
+        <div class="info ">
+            <div class="description">
+                <div style="font-family: 'Jura', Courier, monospace; font-size: 35px;">DESCRIPTION</div>
+
+                <p>
+                    Heap Sort is an in-place iterative sorting algorithm based on auxiliary data structures called heap.
+                    It's less efficient than algorithm with the same time complexity and it's not suitable for data
+                    structures with
+                    few elements.
+                </p>
+                <p>
+                    The heap is a data structure representable as a binary tree, where each node has a value bigger or
+                    equal to its
+                    children. Consequently, the root will hold the maximum value.
+                </p>
+                <p>
+                    The data structure gets ordered to form the heap initially, and then it gets progressively reordered
+                    with an
+                    algorithm similar to <a href="/selection.html">Selection Sort</a>, starting from the bigger
+                    elements.
+                </p>
+
+            </div>
+            <div class="comp-table">
+                <div style="font-family: 'Jura', Courier, monospace; font-size: 35px;">COMPLEXITY</div>
+                <table class="sort-table aos-init aos-animate" data-aos="flip-left">
+                    <tbody>
+                        <tr>
+                            <th>
+                                Average Complexity
+                            </th>
+                            <td>
+
+                                O(n × log n)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Best Case
+                            </th>
+                            <td>
+
+                                O(n × log n)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Worst Case
+                            </th>
+                            <td>
+
+                                O(n × log n)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Space Complexity
+                            </th>
+                            <td>
+
+                                O(1)
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="menu-box">
+            <div style="font-family: 'Jura', Courier, monospace; font-size: 35px;">IMPLEMENTATIONS (c++)</div>
+            <div id="menu-code">
+                <div class="code pt-5">
+                    <pre>
+    void heapify(int arr[], int n, int i) {
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        
+        if (left < n && arr[left]> arr[largest])
+            largest = left;
+        
+        if (right < n && arr[right]> arr[largest])
+            largest = right;
+
+        if (largest != i) {
+            swap(arr[i], arr[largest]);
+            heapify(arr, n, largest);
+        }
+    }
+    
+    void heapSort(int arr[], int n) {
+        for (int i = n / 2 - 1; i >= 0; i--)
+            heapify(arr, n, i);
+
+        for (int i = n - 1; i >= 0; i--) {
+            swap(arr[0], arr[i]);
+            heapify(arr, i, 0);
+        }
+    }
+                    </pre>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer  bg-dark">
+
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3  h-4  text-secondary ">
+
+                <div class="float-start">&copy; Pravocodes</div>
+                <div class="float-end">
+                    <div class="d-flex  footer-content">
+                        <img src="/images/Github_icon.png" alt="">
+                        <p>Github</p>
+                    </div>
+
+                </div>
+            </footer>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

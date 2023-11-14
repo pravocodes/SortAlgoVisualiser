@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+
+
+    <div id="mySidebar" class="sidebar">
+        <h1><a href="/index.html">Home</a></h1>
+    
+        <h3 class="text-light ps-3">LOGARITHMIC</h3>
+        <a href="/quicksort.html">Quick Sort</a>
+        <a href="/merge.html">Merge Sort</a>
+        <a href="/heap.html">Heap Sort</a>
+        <h3 class="text-light ps-3">QUADRATIC</h3>
+        <a href="/selection.html">Selection Sort</a>
+        <a href="/bubble.html">Bubble Sort</a>
+        <a href="/insertion.html">Insertion Sort</a>
+    </div>
+
+    <nav class="fixed-top navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="d-flex">
+                <button id="togglebutton" class="openbtn bg-dark text-light" onclick="toggleNav()">☰</button>
+                <a class="navbar-brand float-start mx-4" href="#">Sort Visualiser</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div>
+        <div id="box">
+            <div class="title">Buuble Sort</div>
+            <div style="float: right; white-space: nowrap;">
+                <button class="sort-btns" id="shuffle-btn" onclick="bubbleplay()"><img src="/images/play.png"
+                        alt="Play"></button>
+                <button class="sort-btns" id="run-btn" onclick="pause()"><img src="/images/pause.png" alt=""></button>
+                <div class="slider-container">
+                    <div id="elements-text">
+                        Elements: <label for="size" id="label"></label>
+                    </div>
+                    <input type="range" value="100" min="10" max="1000" step="5" name="item-num" id="slider">
+
+                    <div id="elements-text">
+                        Time: <label for="speed" id="speed"></label> sec
+                    </div>
+
+                    <input type="range" min="10" max="1000" name="speed" value="500" id="speedSlider"
+                        onchange="setSpeed(this.value)">
+                </div>
+            </div>
+            <div style="clear: both; padding-top: 20px;">
+                <div id="container"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="cover">
+        <div class="info ">
+            <div class="description">
+                <div style="font-family: 'Jura', Courier, monospace; font-size: 35px;">DESCRIPTION</div>
+
+                <p>
+                    Bubble Sort is an iterative sorting algorithm that imitates the movement of bubbles in sparkling
+                    water.
+                    The bubbles represents the elements of the data structure.
+                </p>
+                <p>
+                    The bigger bubbles reach the top faster than smaller bubbles, and this algorithm works in the same
+                    way. It
+                    iterates through the data structure and for each cycle compares the current element with the next
+                    one,
+                    swapping them if they are in the wrong order.
+                </p>
+                <p>
+                    It's a simple algorithm to implement, but not much efficient: on average, quadratic sorting
+                    algorithms with the
+                    same time complexity such as <a href="/selection.html">Selection Sort</a> or <a
+                        href="/insertion.html">Insertion
+                        Sort</a> perform better.<br>
+                    It has several variants to improve its performances, such as Shaker Sort Odd Even Sort and Comb
+                    Sort.
+                </p>
+
+            </div>
+            <div class="comp-table">
+                <div style="font-family: 'Jura', Courier, monospace; font-size: 35px;">COMPLEXITY</div>
+                <table class="sort-table">
+                    <tbody>
+                        <tr>
+                            <th>
+                                Average Complexity
+                            </th>
+                            <td>
+
+                                O(n<sup>2</sup>)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Best Case
+                            </th>
+                            <td>
+
+                                O(n)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Worst Case
+                            </th>
+                            <td>
+
+                                O(n<sup>2</sup>)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Space Complexity
+                            </th>
+                            <td>
+
+                                O(1)
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="menu-box">
+            <div style="font-family: 'Jura', Courier, monospace; font-size: 35px;">IMPLEMENTATIONS (C++)</div>
+            <div id="menu-code">
+                <div class="code pt-5">
+                    <pre>
+    void swap(int *xp, int *yp)
+    {
+        int temp = *xp;
+        *xp = *yp;
+        *yp = temp;
+    }
+    
+    
+    void bubbleSort(int arr[], int n) 
+    {
+    int i, j;
+    for (i = 0; i < n-1; i++) 
+        for (j=0; j < n-i-1; j++) 
+            if (arr[j]> arr[j+1])
+                swap(&arr[j], &arr[j+1]);
+    }
+                    </pre>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer  bg-dark">
+
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3  h-4  text-secondary ">
+
+                <div class="float-start">&copy; Pravocodes</div>
+                <div class="float-end">
+                    <div class="d-flex  footer-content">
+                        <img src="/images/Github_icon.png" alt="">
+                        <p>Github</p>
+                    </div>
+
+                </div>
+            </footer>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

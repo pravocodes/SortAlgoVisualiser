@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        html {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            outline: none;
+            background-color: brown;
+        }
+
+        body {
+
+            border: 20px solid brown;
+            position: relative;
+        }
+
+        .main {
+            display: flex;
+            height: 98vh;
+            background-color: #ffffff;
+        }
+
+        #left {
+            width: 50%;
+            float: left;
+            background-color: lightblue;
+            border: 1px solid black;
+            box-shadow: -4px 6px 8px rgba(0, 0, 0, .7);
+        }
+
+        #right {
+            width: 50%;
+            float: right;
+            background-color: lightskyblue;
+            border: 1px solid black;
+            box-shadow: -4px 6px 8px rgba(0, 0, 0, .7);
+        }
+
+        @keyframes opengateLeft {
+            100% {
+                transform: translateX(-800px);
+            }
+        }
+
+        @keyframes opengateRight {
+            100% {
+                transform: translateX(800px);
+            }
+        }
+
+
+        button {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #cover {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: brown;
+        }
+
+        @keyframes cover {
+            0% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(4);
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="main" id="enterbox">
+        <div id="left"></div>
+        <div id="right"></div>
+    </div>
+    <button id="btn" onclick="openAnimation()"></button>
+
+    <div id="cover"></div>
+
+    <script>
+        function openAnimation() {
+            var left = document.getElementById("left");
+            var right = document.getElementById("right");
+            var cover = document.getElementById("enterbox");
+
+            left.style.animation = "opengateLeft 4s";
+            right.style.animation = "opengateRight 4s";
+
+            left.addEventListener('animationend', function () {
+                left.style.display = 'none';
+
+            });
+
+            right.addEventListener('animationend', function () {
+                right.style.display = 'none';
+                cover.style.animation = "cover 2s forwards";
+            });
+            cover.addEventListener('animationend', function () {
+                setTimeout(function () {
+                    window.location.href = 'index.html';
+                }, 500);
+            });
+
+            document.getElementById("btn").style.display = "none";
+        }
+
+
+    </script>
+
+</body>
+
+</html>
